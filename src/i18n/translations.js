@@ -21,6 +21,7 @@ export const TRANSLATIONS = {
       testimonials: "Testimoni",
       contact: "Kontak",
       consultation: "Konsultasi Gratis",
+      selectLanguage: "Pilih Bahasa",
     },
     hero: {
       badge: "Software Engineering & IT Solutions Terpercaya",
@@ -49,9 +50,9 @@ export const TRANSLATIONS = {
       paragraph1: "AUBE adalah developer terpercaya yang mengembangkan sistem berbasis AI dan memberikan pengalaman kenyamanan bagi customer dan pengguna. Sistem yang nyaman merupakan prioritas kami.",
       paragraph2: "Kami ingin memberikan pengalaman yang memuaskan bagi customer dan pengguna sistem dengan terus berinovasi pada fitur-fitur.",
       visionTitle: "Visi Kami",
-      visionDesc: "Bring the Enterprise to digital access (Membawa perusahaan menuju aksesibilitas digital menyeluruh).",
+      visionDesc: "Membawa perusahaan menuju aksesibilitas digital secara menyeluruh.",
       missionTitle: "Misi Kami",
-      missionDesc: "Provide the best user experience through software innovation (Memberikan pengalaman pengguna terbaik melalui inovasi perangkat lunak).",
+      missionDesc: "Memberikan pengalaman pengguna terbaik melalui inovasi perangkat lunak.",
       features: [
         { title: "Kualitas Kode Terbaik", desc: "Arsitektur bersih, mudah dipelihara, dan mengikuti standar terbaik." },
         { title: "Desain Premium Sky-Clean", desc: "Antarmuka putih dominan & biru langit yang elegan serta ramah pengguna." },
@@ -66,7 +67,7 @@ export const TRANSLATIONS = {
       subtitle: "Prinsip utama dan peta jalan kami dalam membangun perangkat lunak berkualitas tinggi untuk mempercepat transformasi digital bisnis Anda.",
       visionTitle: "Visi Utama Perusahaan",
       visionTag: "Tujuan Jangka Panjang",
-      visionText: "Bring the Enterprise to digital access — Membawa setiap perusahaan dan organisasi menuju aksesibilitas digital secara menyeluruh, efisien, dan tepercaya.",
+      visionText: "Membawa setiap perusahaan dan organisasi menuju aksesibilitas digital secara menyeluruh, efisien, dan tepercaya.",
       visionPillars: [
         { title: "Standardisasi Global", desc: "Menerapkan koding bersih, arsitektur modern, dan pengujian kualitas ketat." },
         { title: "Dampak Bisnis Nyata", desc: "Setiap sistem yang dibangun memberikan nilai tambah dan ROI nyata bagi perusahaan." },
@@ -74,7 +75,7 @@ export const TRANSLATIONS = {
       ],
       missionTitle: "Misi Strategis Perusahaan",
       missionTag: "Langkah & Eksekusi",
-      missionText: "Provide the best user experience through software innovation — Memberikan pengalaman pengguna (user experience) terbaik melalui inovasi perangkat lunak modern, intuitif, dan berdampak tinggi.",
+      missionText: "Memberikan pengalaman pengguna terbaik melalui inovasi perangkat lunak modern, intuitif, dan berdampak tinggi.",
       missionPoints: [
         { title: "Pengembangan Software Scalable", desc: "Merancang arsitektur perangkat lunak yang aman, modular, dan siap berkembang mengikuti skala bisnis." },
         { title: "Desain UI/UX Intuitive & Premium", desc: "Menghadirkan antarmuka pengguna dominan sky-clean yang estetik, responsif, dan mudah digunakan." },
@@ -267,6 +268,7 @@ export const TRANSLATIONS = {
       testimonials: "Testimonials",
       contact: "Contact",
       consultation: "Free Consultation",
+      selectLanguage: "Select Language",
     },
     hero: {
       badge: "Trusted Software Engineering & IT Solutions",
@@ -295,9 +297,9 @@ export const TRANSLATIONS = {
       paragraph1: "AUBE is a trusted developer engineering AI-based systems to deliver smooth and comfortable experiences for customers and users. A comfortable system experience is our highest priority.",
       paragraph2: "We aim to deliver deeply satisfying experiences for customers and system users by continuously innovating our feature ecosystem.",
       visionTitle: "Our Vision",
-      visionDesc: "Bring the Enterprise to digital access.",
+      visionDesc: "Bringing enterprises to comprehensive digital access.",
       missionTitle: "Our Mission",
-      missionDesc: "Provide the best user experience through software innovation.",
+      missionDesc: "Providing the best user experience through software innovation.",
       features: [
         { title: "Top-Tier Code Quality", desc: "Clean architecture, highly maintainable, adhering to industry standards." },
         { title: "Premium Sky-Clean Design", desc: "Dominant crisp white & sky blue aesthetics for maximum readability and visual beauty." },
@@ -312,7 +314,7 @@ export const TRANSLATIONS = {
       subtitle: "Our core principles and roadmap in building high-quality software to accelerate your business digital transformation.",
       visionTitle: "Primary Corporate Vision",
       visionTag: "Long-Term Objective",
-      visionText: "Bring the Enterprise to digital access — Empowering enterprises and organizations with seamless, scalable, and secure digital access.",
+      visionText: "Empowering enterprises and organizations with seamless, scalable, and secure digital access.",
       visionPillars: [
         { title: "Global Standardisation", desc: "Enforcing clean code, modern architecture, and rigorous quality assurance." },
         { title: "Tangible Business Impact", desc: "Every system built delivers measurable value and real ROI for your enterprise." },
@@ -320,7 +322,7 @@ export const TRANSLATIONS = {
       ],
       missionTitle: "Strategic Corporate Mission",
       missionTag: "Execution Roadmap",
-      missionText: "Provide the best user experience through software innovation — Delivering intuitive, high-performance software tailored for optimal user experiences.",
+      missionText: "Delivering intuitive, high-performance software tailored for optimal user experiences.",
       missionPoints: [
         { title: "Scalable Software Engineering", desc: "Architecting secure, modular software systems ready to scale with business growth." },
         { title: "Premium & Intuitive UI/UX", desc: "Crafting sky-clean, aesthetic, responsive, and user-friendly interfaces." },
@@ -513,6 +515,7 @@ export const TRANSLATIONS = {
       testimonials: "Đánh giá",
       contact: "Liên hệ",
       consultation: "Tư vấn miễn phí",
+      selectLanguage: "Chọn Ngôn Ngữ",
     },
     hero: {
       badge: "Giải pháp Công nghệ & Phần mềm Uy tín",
@@ -541,9 +544,9 @@ export const TRANSLATIONS = {
       paragraph1: "AUBE là nhà phát triển uy tín chuyên xây dựng các hệ thống dựa trên AI và mang lại trải nghiệm tiện lợi, thoải mái nhất cho khách hàng và người dùng. Hệ thống tiện ích luôn là ưu tiên hàng đầu của chúng tôi.",
       paragraph2: "Chúng tôi cam kết mang đến trải nghiệm tuyệt vời cho khách hàng và người dùng bằng cách không ngừng đổi mới và nâng cấp các tính năng hiện đại.",
       visionTitle: "Tầm nhìn",
-      visionDesc: "Bring the Enterprise to digital access (Đưa doanh nghiệp tiếp cận môi trường số toàn diện).",
+      visionDesc: "Đưa doanh nghiệp tiếp cận môi trường số toàn diện.",
       missionTitle: "Sứ mệnh",
-      missionDesc: "Provide the best user experience through software innovation (Mang lại trải nghiệm người dùng tốt nhất qua đổi mới phần mềm).",
+      missionDesc: "Mang lại trải nghiệm người dùng tốt nhất qua đổi mới phần mềm.",
       features: [
         { title: "Chất lượng Mã Nguồn Cao", desc: "Kiến trúc sạch, dễ bảo trì và tuân thủ tiêu chuẩn ngành." },
         { title: "Giao diện Xanh Trắng Hiện đại", desc: "Tông màu trắng chủ đạo & xanh da trời tinh tế, thân thiện với người dùng." },
@@ -558,7 +561,7 @@ export const TRANSLATIONS = {
       subtitle: "Các nguyên tắc cốt lõi và lộ trình của chúng tôi trong việc xây dựng phần mềm chất lượng cao.",
       visionTitle: "Tầm nhìn Cốt lõi",
       visionTag: "Mục tiêu Dài hạn",
-      visionText: "Bring the Enterprise to digital access — Đưa mọi doanh nghiệp và tổ chức tiếp cận môi trường chuyển đổi số toàn diện, hiệu quả và tin cậy.",
+      visionText: "Đưa mọi doanh nghiệp và tổ chức tiếp cận môi trường chuyển đổi số toàn diện, hiệu quả và tin cậy.",
       visionPillars: [
         { title: "Tiêu chuẩn Toàn cầu", desc: "Áp dụng mã nguồn sạch, kiến trúc hiện đại và kiểm thử nghiêm ngặt." },
         { title: "Tác động Kinh doanh Đột phá", desc: "Mọi hệ thống đều mang lại giá trị gia tăng và ROI thực tế." },
@@ -566,7 +569,7 @@ export const TRANSLATIONS = {
       ],
       missionTitle: "Sứ mệnh Chiến lược",
       missionTag: "Lộ trình Thực thi",
-      missionText: "Provide the best user experience through software innovation — Mang lại trải nghiệm người dùng tốt nhất thông qua sự đổi mới phần mềm hiện đại và trực quan.",
+      missionText: "Mang lại trải nghiệm người dùng tốt nhất thông qua sự đổi mới phần mềm hiện đại và trực quan.",
       missionPoints: [
         { title: "Phát triển Phần mềm Mở rộng", desc: "Thiết kế kiến trúc an toàn, sẵn sàng mở rộng theo quy mô doanh nghiệp." },
         { title: "Giao diện UI/UX Đẳng cấp", desc: "Tạo ra antarmuka thẩm mỹ, phản hồi nhanh và dễ sử dụng." },
@@ -759,6 +762,7 @@ export const TRANSLATIONS = {
       testimonials: "お客様の声",
       contact: "お問い合わせ",
       consultation: "無料相談",
+      selectLanguage: "言語を選択",
     },
     hero: {
       badge: "信頼されるソフトウェア開発＆ITソリューション",
@@ -787,9 +791,9 @@ export const TRANSLATIONS = {
       paragraph1: "AUBEは、AIベースのシステムを開発し、顧客およびユーザーに快適な体験を提供する信頼性の高いデベロッパーです。使いやすく快適なシステム構築は私たちの最優先事項です。",
       paragraph2: "最新機能の絶え間ない革新を通じて、顧客とシステムユーザーに心から満足していただける体験を提供し続けることを目指しています。",
       visionTitle: "ビジョン",
-      visionDesc: "Bring the Enterprise to digital access (企業にデジタルアクセスをもたらす)。",
+      visionDesc: "企業に包括的なデジタルアクセスを提供します。",
       missionTitle: "ミッション",
-      missionDesc: "Provide the best user experience through software innovation (ソフトウェアの革新を通じて最高のユーザー体験を提供する)。",
+      missionDesc: "ソフトウェアの革新を通じて最高のユーザー体験を提供します。",
       features: [
         { title: "最高品質のコード", desc: "クリーンアーキテクチャと保守性の高いコード設計。" },
         { title: "洗練されたスカイブルーデザイン", desc: "清潔感あふれる白とスカイブルーを基調としたモダンUI。" },
@@ -798,13 +802,13 @@ export const TRANSLATIONS = {
       ]
     },
     visionMission: {
-      badge: "企業理念 (Visi & Misi)",
+      badge: "企業理念",
       heading: "戦略的方針とコミットメント",
       headingAccent: "AUBE TERA",
       subtitle: "高品質なソフトウェア開発を通じてお客様のデジタル変革を加速する基本理念。",
       visionTitle: "企業ビジョン (Vision)",
       visionTag: "長期目標",
-      visionText: "Bring the Enterprise to digital access — すべての企業および組織に対し、シームレスで信頼性の高いデジタルアクセス環境を提供します。",
+      visionText: "すべての企業および組織に対し、シームレスで信頼性の高いデジタルアクセス環境を提供します。",
       visionPillars: [
         { title: "グローバル標準", desc: "クリーンコード、モダンアーキテクチャ、厳格な品質管理の実装。" },
         { title: "実質的なビジネス成果", desc: "構築されたすべてのシステムが測定可能な価値とROIを提供。" },
@@ -812,7 +816,7 @@ export const TRANSLATIONS = {
       ],
       missionTitle: "企業ミッション (Mission)",
       missionTag: "実行ロードマップ",
-      missionText: "Provide the best user experience through software innovation — ソフトウェア技術の革新を通じて、最高のユーザー体験（UX）を実現します。",
+      missionText: "直感的でモダンなソフトウェア技術の革新を通じて、最高のユーザー体験（UX）を実現します。",
       missionPoints: [
         { title: "拡張可能なソフトウェア開発", desc: "企業の成長に合わせて拡張可能な安全でモジュール化されたシステム設計。" },
         { title: "プレミアムかつ直感的なUI/UX", desc: "洗練されたスカイクリーンデザインと快適な操作性の実現。" },

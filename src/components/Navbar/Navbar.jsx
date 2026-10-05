@@ -124,7 +124,7 @@ export const Navbar = () => {
             })}
           </nav>
 
-          {/* Theme Switcher, Language Switcher & Desktop CTA */}
+          {/* Theme Switcher & Language Switcher */}
           <div className="hidden lg:flex items-center gap-3">
             
             {/* Theme Toggle Button */}
@@ -155,7 +155,6 @@ export const Navbar = () => {
                 aria-label="Select Language"
               >
                 <Globe className={`w-3.5 h-3.5 ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />
-                <span className="text-base leading-none">{currentLangObj.flag}</span>
                 <span className={`font-bold ${isDark ? 'text-slate-100' : 'text-slate-800'}`}>{currentLangObj.label}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${
                   isDark ? 'text-slate-400' : 'text-slate-500'
@@ -171,7 +170,7 @@ export const Navbar = () => {
                   <div className={`px-3 py-1 text-[10px] font-bold tracking-wider uppercase border-b mb-1 flex items-center justify-between ${
                     isDark ? 'text-cyan-400 border-slate-800' : 'text-sky-600 border-slate-100'
                   }`}>
-                    <span>Select Language</span>
+                    <span>{t('nav.selectLanguage')}</span>
                     <Sparkles className={`w-3 h-3 ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />
                   </div>
                   {LANGUAGES.map((lang) => (
@@ -192,8 +191,10 @@ export const Navbar = () => {
                             : 'text-slate-700 hover:bg-sky-50/80 hover:text-sky-700'
                       }`}
                     >
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-base">{lang.flag}</span>
+                      <div className="flex items-center gap-2">
+                        <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded ${
+                          isDark ? 'bg-slate-800 text-cyan-300' : 'bg-sky-100 text-sky-700'
+                        }`}>{lang.label}</span>
                         <span>{lang.name}</span>
                       </div>
                       {language === lang.code && <Check className={`w-3.5 h-3.5 ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />}
@@ -202,17 +203,6 @@ export const Navbar = () => {
                 </div>
               )}
             </div>
-
-            {/* CTA Button */}
-            <Button
-              variant="primary"
-              size="sm"
-              icon={ArrowUpRight}
-              className="bg-gradient-to-r from-sky-500 via-cyan-400 to-blue-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-black shadow-lg shadow-cyan-500/20 border border-cyan-300/50"
-              onClick={() => window.open(getWhatsAppUrl(), '_blank')}
-            >
-              {t('nav.consultation')}
-            </Button>
           </div>
 
           {/* Mobile Actions: Theme, Language & Hamburger */}
@@ -243,8 +233,11 @@ export const Navbar = () => {
                     : 'bg-white text-slate-700 border-sky-200'
                 }`}
               >
-                <span>{currentLangObj.flag}</span>
+                <Globe className={`w-3.5 h-3.5 ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />
                 <span className={`text-[11px] font-bold ${isDark ? 'text-cyan-400' : 'text-sky-600'}`}>{currentLangObj.label}</span>
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${
+                  isDark ? 'text-slate-400' : 'text-slate-500'
+                } ${langDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {langDropdownOpen && (
@@ -266,9 +259,12 @@ export const Navbar = () => {
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        <span>{lang.flag}</span>
+                        <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded ${
+                          isDark ? 'bg-slate-800 text-cyan-300' : 'bg-sky-100 text-sky-700'
+                        }`}>{lang.label}</span>
                         <span>{lang.name}</span>
                       </div>
+                      {language === lang.code && <Check className={`w-3.5 h-3.5 ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />}
                     </button>
                   ))}
                 </div>
@@ -297,7 +293,7 @@ export const Navbar = () => {
             ? 'bg-slate-950/95 border-sky-500/20 text-slate-100'
             : 'bg-white/95 border-sky-200 text-slate-800'
         }`}>
-          <nav className="flex flex-col gap-1.5 mb-6">
+          <nav className="flex flex-col gap-1.5">
             {navLinks.map((link) => (
               <a
                 key={link.id}
@@ -317,21 +313,6 @@ export const Navbar = () => {
               </a>
             ))}
           </nav>
-
-          <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
-            <Button
-              variant="primary"
-              size="md"
-              className="w-full bg-gradient-to-r from-sky-500 via-cyan-400 to-blue-600 text-slate-950 font-black"
-              icon={ArrowUpRight}
-              onClick={() => {
-                setMobileMenuOpen(false);
-                window.open(getWhatsAppUrl(), '_blank');
-              }}
-            >
-              {t('nav.consultation')}
-            </Button>
-          </div>
         </div>
       )}
     </header>
