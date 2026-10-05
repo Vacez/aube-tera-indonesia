@@ -35,14 +35,6 @@ export const PortfolioSection = () => {
         isDark ? 'bg-cyan-500/10' : 'bg-sky-400/15'
       }`} />
 
-      {/* Side Fade Gradients for seamless infinite loop */}
-      <div className={`absolute top-0 bottom-0 left-0 w-16 sm:w-32 z-20 pointer-events-none bg-gradient-to-r ${
-        isDark ? 'from-slate-950 via-slate-950/90 to-transparent' : 'from-white via-white/90 to-transparent'
-      }`} />
-      <div className={`absolute top-0 bottom-0 right-0 w-16 sm:w-32 z-20 pointer-events-none bg-gradient-to-l ${
-        isDark ? 'from-slate-950 via-slate-950/90 to-transparent' : 'from-white via-white/90 to-transparent'
-      }`} />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
@@ -63,7 +55,7 @@ export const PortfolioSection = () => {
           </h2>
 
           <p className={`text-sm sm:text-base leading-relaxed ${
-            isDark ? 'text-slate-400' : 'text-slate-600'
+            isDark ? 'text-slate-300' : 'text-slate-600'
           }`}>
             {t('portfolio.subtitle')}
           </p>
@@ -131,7 +123,14 @@ export const PortfolioSection = () => {
       </div>
 
       {/* Full Width Continuous One-Direction Marquee Container */}
-      <div className="w-full overflow-hidden py-4">
+      <div className="relative w-full overflow-hidden py-4">
+        {/* Side Fade Gradients strictly scoped to marquee cards track */}
+        <div className={`absolute top-0 bottom-0 left-0 w-12 sm:w-24 z-10 pointer-events-none bg-gradient-to-r ${
+          isDark ? 'from-slate-950 via-slate-950/80 to-transparent' : 'from-white via-white/80 to-transparent'
+        }`} />
+        <div className={`absolute top-0 bottom-0 right-0 w-12 sm:w-24 z-10 pointer-events-none bg-gradient-to-l ${
+          isDark ? 'from-slate-950 via-slate-950/80 to-transparent' : 'from-white via-white/80 to-transparent'
+        }`} />
         <div 
           className={`flex gap-6 items-stretch ${
             direction === 'forward' ? 'animate-marquee' : 'animate-marquee-reverse'
