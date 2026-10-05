@@ -13,13 +13,15 @@ import {
   Trash2,
   Clock,
   ChevronRight,
-  MessageSquare
+  MessageSquare,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import { AIMessage } from './AIMessage';
 import { AIInput } from './AIInput';
 import { AIQuickPrompts } from './AIQuickPrompts';
 import { ProjectBriefCard } from './ProjectBriefCard';
-import { sendAIMessage, generateProjectBrief } from '../../services/aiService';
+import { sendAIMessage, generateProjectBrief, detectMessageLanguage } from '../../services/aiService';
 import { submitLead } from '../../services/leadService';
 import { Button } from '../Button/Button';
 import { useTheme } from '../../context/ThemeContext';
@@ -33,12 +35,14 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
   const getInitialMessage = useCallback(() => ({
     role: 'assistant',
     content: t('aiChat.welcomeMsg'),
+    detectedLang: language,
     timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  }), [t]);
+  }), [t, language]);
 
   const [messages, setMessages] = useState(() => [{
     role: 'assistant',
     content: t('aiChat.welcomeMsg'),
+    detectedLang: language,
     timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   }]);
 
@@ -62,6 +66,8 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [projectBrief, setProjectBrief] = useState(null);
   const [isGeneratingBrief, setIsGeneratingBrief] = useState(false);
+  // Auto-Voice Assistant State (Enabled by default for two-way voice call)
+  const [isAutoVoice, setIsAutoVoice] = useState(true);
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [leadSubmitted, setLeadSubmitted] = useState(false);
   
@@ -182,13 +188,15 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
       const res = await sendAIMessage({
         message: text,
         history: newHistory.map((m) => ({ role: m.role, content: m.content })),
-        conversationId
+        conversationId,
+        language
       });
 
       if (res.success) {
         const assistantMsg = {
           role: 'assistant',
           content: res.message,
+          detectedLang: res.detectedLanguage || detectMessageLanguage(res.message, language),
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
         const finalHistory = [...newHistory, assistantMsg];
@@ -348,6 +356,20 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
                 )}
               </button>
 
+              {/* Button: Mode Voice Output Auto */}
+              <button
+                type="button"
+                onClick={() => setIsAutoVoice(!isAutoVoice)}
+                className={`p-2 rounded-full border transition-all cursor-pointer ${
+                  isAutoVoice
+                    ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-md animate-pulse'
+                    : isDark ? 'bg-slate-900 text-slate-400 hover:text-cyan-300 border-slate-800' : 'bg-white text-slate-600 hover:text-sky-600 border-sky-200'
+                }`}
+                title={isAutoVoice ? "Matikan Auto Voice Output" : "Aktifkan Auto Voice Output (Suara AI)"}
+              >
+                {isAutoVoice ? <Volume2 className="w-4 h-4 text-cyan-300" /> : <VolumeX className="w-4 h-4" />}
+              </button>
+
               {/* Button: Close Modal */}
               <button
                 onClick={onClose}
@@ -437,7 +459,11 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
 
             {/* Conversation Messages */}
             {messages.map((msg, index) => (
-              <AIMessage key={index} message={msg} />
+              <AIMessage 
+                key={index} 
+                message={msg} 
+                autoSpeak={isAutoVoice && index === messages.length - 1} 
+              />
             ))}
 
             {/* Typing Indicator */}

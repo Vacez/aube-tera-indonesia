@@ -6,6 +6,7 @@ import { Button } from '../../components/Button/Button';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 import { TechMarquee } from '../../components/TechMarquee/TechMarquee';
+import WebThreads from '../../components/WebThreads/WebThreads';
 
 export const HeroSection = () => {
   const { t } = useLanguage();
@@ -16,27 +17,56 @@ export const HeroSection = () => {
       isDark ? 'bg-slate-950 border-sky-500/15 text-slate-100' : 'bg-slate-50 border-sky-200 text-slate-900'
     }`}>
       
+      {/* Dynamic React Bits WebThreads Animated Background */}
+      <div className="absolute inset-0 pointer-events-auto z-0 opacity-80 overflow-hidden">
+        <WebThreads
+          color1={isDark ? '#06b6d4' : '#0284c7'}
+          color2={isDark ? '#818cf8' : '#6366f1'}
+          color3={isDark ? '#ffffff' : '#e0f2fe'}
+          speed={0.25}
+          threadCount={7}
+          frequency={4.5}
+          spread={0.2}
+          taper={1.1}
+          position={0.5}
+          fanMode="center"
+          glow={0.03}
+          falloff={0.55}
+          thickness={1.2}
+          brightness={isDark ? 0.75 : 0.6}
+          opacity={isDark ? 0.85 : 0.65}
+          mirror={true}
+          shimmer={true}
+          grain={true}
+          grainIntensity={0.04}
+          mouseInteraction={true}
+          mouseStrength={0.4}
+          backgroundColor={isDark ? '#050811' : '#f8fafc'}
+          lightMode={!isDark}
+        />
+      </div>
+
       {/* Real Corporate IT Software Office Background Wallpaper */}
       <div 
-        className={`absolute inset-0 bg-cover bg-center transition-all duration-700 pointer-events-none ${
-          isDark ? 'opacity-25 mix-blend-luminosity' : 'opacity-20 mix-blend-multiply'
+        className={`absolute inset-0 bg-cover bg-center transition-all duration-700 pointer-events-none z-0 ${
+          isDark ? 'opacity-15 mix-blend-luminosity' : 'opacity-10 mix-blend-multiply'
         }`}
         style={{
           backgroundImage: "url('/corporate_it_bg.jpg')"
         }}
       />
-      <div className={`absolute inset-0 pointer-events-none ${
+      <div className={`absolute inset-0 pointer-events-none z-0 ${
         isDark 
-          ? 'bg-gradient-to-b from-slate-950/90 via-slate-950/80 to-slate-950' 
-          : 'bg-gradient-to-b from-white/85 via-slate-50/90 to-slate-50'
+          ? 'bg-gradient-to-b from-slate-950/80 via-slate-950/70 to-slate-950/95' 
+          : 'bg-gradient-to-b from-white/75 via-slate-50/80 to-slate-50/95'
       }`} />
 
       {/* Futuristic Background Ambient Glow Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-radial-cyan pointer-events-none" />
-      <div className={`absolute top-24 right-12 w-96 h-96 rounded-full blur-3xl pointer-events-none animate-pulse-glow ${
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-radial-cyan pointer-events-none z-0" />
+      <div className={`absolute top-24 right-12 w-96 h-96 rounded-full blur-3xl pointer-events-none animate-pulse-glow z-0 ${
         isDark ? 'bg-cyan-500/10' : 'bg-sky-400/15'
       }`} />
-      <div className={`absolute bottom-12 left-12 w-96 h-96 rounded-full blur-3xl pointer-events-none ${
+      <div className={`absolute bottom-12 left-12 w-96 h-96 rounded-full blur-3xl pointer-events-none z-0 ${
         isDark ? 'bg-indigo-500/10' : 'bg-blue-400/10'
       }`} />
 
@@ -50,15 +80,25 @@ export const HeroSection = () => {
             transition={{ duration: 0.8 }}
             className="lg:col-span-7 space-y-6 text-center lg:text-left"
           >
-            {/* Top Brand Pill with Cyber Glow */}
-            <div className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-bold backdrop-blur-md transition-all ${
-              isDark
-                ? 'bg-slate-900/90 border border-cyan-500/30 text-cyan-300 shadow-lg shadow-cyan-950/50'
-                : 'bg-white/90 border border-sky-300 text-sky-700 shadow-md shadow-sky-900/5'
-            }`}>
-              <Sparkles className={`w-3.5 h-3.5 animate-spin-slow ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />
-              <span>{t('hero.badge')}</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            {/* Top Brand Pill & Official Slogan */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
+              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-wide backdrop-blur-md transition-all ${
+                isDark
+                  ? 'bg-gradient-to-r from-cyan-950/80 via-sky-950/80 to-slate-900/90 border border-cyan-400/40 text-cyan-300 shadow-lg shadow-cyan-950/60'
+                  : 'bg-gradient-to-r from-sky-50 via-cyan-50 to-white border border-sky-300 text-sky-800 shadow-md shadow-sky-900/5'
+              }`}>
+                <Sparkles className={`w-3.5 h-3.5 animate-spin-slow ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />
+                <span className="font-black tracking-wider uppercase text-[11px]">{t('company.slogan') || COMPANY_CONFIG.slogan}</span>
+              </div>
+
+              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md transition-all ${
+                isDark
+                  ? 'bg-slate-900/80 border border-slate-800 text-slate-300'
+                  : 'bg-white/80 border border-slate-200 text-slate-600'
+              }`}>
+                <span>{t('hero.badge')}</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              </div>
             </div>
 
             {/* Main Headline */}

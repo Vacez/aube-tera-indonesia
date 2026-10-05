@@ -32,11 +32,18 @@ export const Footer = () => {
               <div className="w-10 h-10 rounded-full overflow-hidden bg-white p-1 border-2 border-sky-400/60 shadow-lg shadow-sky-500/25 group-hover:scale-105 transition-transform duration-300 shrink-0 flex items-center justify-center">
                 <img src="/logo.png" alt="PT. AUBE TERA INDONESIA" className="w-full h-full object-contain rounded-full" />
               </div>
-              <span className={`font-extrabold text-lg tracking-wider transition-colors ${
-                isDark ? 'text-white group-hover:text-cyan-400' : 'text-slate-900 group-hover:text-sky-600'
-              }`}>
-                {COMPANY_CONFIG.name}
-              </span>
+              <div className="flex flex-col">
+                <span className={`font-extrabold text-lg tracking-wider transition-colors ${
+                  isDark ? 'text-white group-hover:text-cyan-400' : 'text-slate-900 group-hover:text-sky-600'
+                }`}>
+                  {COMPANY_CONFIG.name}
+                </span>
+                <span className={`text-[11px] font-bold tracking-wider ${
+                  isDark ? 'text-cyan-400' : 'text-sky-600'
+                }`}>
+                  "{t('company.slogan') || COMPANY_CONFIG.slogan}"
+                </span>
+              </div>
             </a>
             
             <p className={`text-sm leading-relaxed max-w-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>

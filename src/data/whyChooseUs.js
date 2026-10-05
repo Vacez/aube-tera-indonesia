@@ -6,6 +6,13 @@ export const getWhyChooseUsData = (lang = 'id') => {
   const data = {
     id: [
       {
+        id: "ai-vision-technology",
+        title: "Teknologi AI Utama",
+        description: "Teknologi AI menjadi arah utama dalam mewujudkan visi perusahaan untuk menghadirkan sistem cerdas, efisien, dan kenyamanan maksimal.",
+        icon: "Sparkles",
+        color: "from-cyan-400 to-sky-500"
+      },
+      {
         id: "custom-solution",
         title: "Custom Solution",
         description: "Setiap sistem dikembangkan berdasarkan kebutuhan dan proses bisnis unik klien, bukan sekadar menggunakan template generik.",
@@ -34,13 +41,6 @@ export const getWhyChooseUsData = (lang = 'id') => {
         color: "from-purple-500 to-indigo-500"
       },
       {
-        id: "scalable-system",
-        title: "Scalable System",
-        description: "Arsitektur sistem dirancang kokoh agar dapat berkembang dengan lancar seiring dengan pertumbuhan dan ekspansi bisnis Anda.",
-        icon: "TrendingUp",
-        color: "from-emerald-400 to-cyan-500"
-      },
-      {
         id: "after-sales-support",
         title: "After-Sales Support",
         description: "Menyediakan layanan maintenance berkala, garansi pemeliharaan, dan dukungan teknis sigap setelah sistem selesai dikembangkan.",
@@ -50,6 +50,13 @@ export const getWhyChooseUsData = (lang = 'id') => {
     ],
 
     en: [
+      {
+        id: "ai-vision-technology",
+        title: "Core AI Technology Direction",
+        description: "AI technology serves as our primary direction in achieving our corporate vision to deliver intelligent, seamless, and efficient systems.",
+        icon: "Sparkles",
+        color: "from-cyan-400 to-sky-500"
+      },
       {
         id: "custom-solution",
         title: "Custom Solution",
@@ -79,13 +86,6 @@ export const getWhyChooseUsData = (lang = 'id') => {
         color: "from-purple-500 to-indigo-500"
       },
       {
-        id: "scalable-system",
-        title: "Scalable Architecture",
-        description: "Robust architecture designed to seamlessly handle high traffic spikes and scale effortlessly alongside your business growth.",
-        icon: "TrendingUp",
-        color: "from-emerald-400 to-cyan-500"
-      },
-      {
         id: "after-sales-support",
         title: "Dedicated After-Sales Support",
         description: "Comprehensive SLA coverage, 24/7 server monitoring, and continuous technical support post-release.",
@@ -95,6 +95,13 @@ export const getWhyChooseUsData = (lang = 'id') => {
     ],
 
     vi: [
+      {
+        id: "ai-vision-technology",
+        title: "Công nghệ AI Cốt lõi",
+        description: "Công nghệ AI là hướng đi chính trong việc thực hiện tầm nhìn doanh nghiệp, mang lại hệ thống thông minh và tối ưu trải nghiệm.",
+        icon: "Sparkles",
+        color: "from-cyan-400 to-sky-500"
+      },
       {
         id: "custom-solution",
         title: "Giải pháp Tùy chỉnh",
@@ -124,13 +131,6 @@ export const getWhyChooseUsData = (lang = 'id') => {
         color: "from-purple-500 to-indigo-500"
       },
       {
-        id: "scalable-system",
-        title: "Hệ thống Linh hoạt Mở rộng",
-        description: "Kiến trúc bền vững đảm bảo hệ thống phát triển nhịp nhàng cùng sự tăng trưởng của doanh nghiệp.",
-        icon: "TrendingUp",
-        color: "from-emerald-400 to-cyan-500"
-      },
-      {
         id: "after-sales-support",
         title: "Hỗ trợ Sau Bàn giao",
         description: "Cung cấp dịch vụ bảo trì định kỳ, bảo hành hệ thống và hỗ trợ kỹ thuật lâu dài.",
@@ -140,6 +140,13 @@ export const getWhyChooseUsData = (lang = 'id') => {
     ],
 
     ja: [
+      {
+        id: "ai-vision-technology",
+        title: "核心AIテクノロジー",
+        description: "AI技術は企業のビジョンを実現するための主要な方向性であり、高度で効率的かつ快適なシステム体験を提供します。",
+        icon: "Sparkles",
+        color: "from-cyan-400 to-sky-500"
+      },
       {
         id: "custom-solution",
         title: "オーダーメイド開発",
@@ -167,13 +174,6 @@ export const getWhyChooseUsData = (lang = 'id') => {
         description: "直感的な操作性、滑らかなナビゲーション、洗練されたビジュアル体験を追求します。",
         icon: "HeartHandshake",
         color: "from-purple-500 to-indigo-500"
-      },
-      {
-        id: "scalable-system",
-        title: "高拡張性アーキテクチャ",
-        description: "将来の事業拡大やアクセス増加にスムーズに対応できる堅牢なシステム設計。",
-        icon: "TrendingUp",
-        color: "from-emerald-400 to-cyan-500"
       },
       {
         id: "after-sales-support",

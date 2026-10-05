@@ -7,6 +7,10 @@ export const LANGUAGES = [
 
 export const TRANSLATIONS = {
   id: {
+    company: {
+      slogan: "Connecting Bermakna",
+      sloganSub: "Connecting Bermakna",
+    },
     nav: {
       home: "Beranda",
       about: "Tentang",
@@ -22,7 +26,7 @@ export const TRANSLATIONS = {
       badge: "Software Engineering & IT Solutions Terpercaya",
       heading1: "Solusi Teknologi Modern untuk",
       headingAccent: "Akselerasi Bisnis Anda",
-      description: "PT. AUBE TERA INDONESIA menghadirkan website, aplikasi mobile, dan sistem informasi berstandar tinggi yang scalable, cepat, dan aman untuk membawa bisnis Anda ke tingkat berikutnya.",
+      description: "PT. AUBE TERA INDONESIA menghadirkan website, aplikasi mobile, dan sistem informasi berstandar tinggi yang terintegrasi dengan Artificial Intelligence (AI), scalable, cepat, dan aman untuk membawa bisnis Anda ke tingkat berikutnya.",
       btnConsult: "Konsultasi Gratis",
       btnPortfolio: "Lihat Portofolio",
       trustBadgesTitle: "Standar Perangkat Lunak Kami:",
@@ -40,10 +44,10 @@ export const TRANSLATIONS = {
     },
     about: {
       badge: "Tentang Perusahaan",
-      heading: "Membangun Masa Depan Digital Bersama",
-      headingAccent: "PT. AUBE TERA INDONESIA",
-      paragraph1: "PT. AUBE TERA INDONESIA adalah perusahaan teknologi informasi profesional yang berfokus pada rekayasa perangkat lunak modern, pengembangan aplikasi web & mobile, serta otomatisasi sistem informasi perusahaan.",
-      paragraph2: "Dengan tim engineer berpengalaman dan pendekatan yang fleksibel, kami siap membantu setiap skala bisnis — mulai dari UMKM hingga perusahaan multinasional — untuk bertransformasi ke ekosistem digital.",
+      heading: "Developer Terpercaya &",
+      headingAccent: "Inovator Sistem Berbasis AI",
+      paragraph1: "AUBE adalah developer terpercaya yang mengembangkan sistem berbasis AI dan memberikan pengalaman kenyamanan bagi customer dan pengguna. Sistem yang nyaman merupakan prioritas kami.",
+      paragraph2: "Kami ingin memberikan pengalaman yang memuaskan bagi customer dan pengguna sistem dengan terus berinovasi pada fitur-fitur.",
       visionTitle: "Visi Kami",
       visionDesc: "Bring the Enterprise to digital access (Membawa perusahaan menuju aksesibilitas digital menyeluruh).",
       missionTitle: "Misi Kami",
@@ -249,6 +253,10 @@ export const TRANSLATIONS = {
   },
 
   en: {
+    company: {
+      slogan: "Connecting Bermakna",
+      sloganSub: "Connecting Bermakna",
+    },
     nav: {
       home: "Home",
       about: "About",
@@ -264,7 +272,7 @@ export const TRANSLATIONS = {
       badge: "Trusted Software Engineering & IT Solutions",
       heading1: "Modern Technology Solutions for",
       headingAccent: "Business Acceleration",
-      description: "PT. AUBE TERA INDONESIA delivers high-standard websites, mobile apps, and scalable information systems designed to elevate your enterprise.",
+      description: "PT. AUBE TERA INDONESIA delivers high-standard websites, mobile apps, and AI-integrated scalable information systems that are fast, secure, and ready to elevate your enterprise to the next level.",
       btnConsult: "Free Consultation",
       btnPortfolio: "Explore Portfolio",
       trustBadgesTitle: "Our Software Standards:",
@@ -282,10 +290,10 @@ export const TRANSLATIONS = {
     },
     about: {
       badge: "About Us",
-      heading: "Building the Digital Future Together with",
-      headingAccent: "PT. AUBE TERA INDONESIA",
-      paragraph1: "PT. AUBE TERA INDONESIA is a professional IT firm specializing in modern software engineering, web & mobile application development, and enterprise workflow automation.",
-      paragraph2: "Driven by experienced engineers and agile methods, we empower businesses of all sizes — from SMEs to global corporations — to transition smoothly into the digital realm.",
+      heading: "Trusted Developer &",
+      headingAccent: "AI System Innovator",
+      paragraph1: "AUBE is a trusted developer engineering AI-based systems to deliver smooth and comfortable experiences for customers and users. A comfortable system experience is our highest priority.",
+      paragraph2: "We aim to deliver deeply satisfying experiences for customers and system users by continuously innovating our feature ecosystem.",
       visionTitle: "Our Vision",
       visionDesc: "Bring the Enterprise to digital access.",
       missionTitle: "Our Mission",
@@ -491,6 +499,10 @@ export const TRANSLATIONS = {
   },
 
   vi: {
+    company: {
+      slogan: "Connecting Bermakna",
+      sloganSub: "Connecting Bermakna",
+    },
     nav: {
       home: "Trang chủ",
       about: "Giới thiệu",
@@ -506,7 +518,7 @@ export const TRANSLATIONS = {
       badge: "Giải pháp Công nghệ & Phần mềm Uy tín",
       heading1: "Giải pháp Công nghệ Hiện đại cho",
       headingAccent: "Tăng trưởng Doanh nghiệp",
-      description: "PT. AUBE TERA INDONESIA cung cấp website, ứng dụng di động và hệ thống thông tin tiêu chuẩn cao, có khả năng mở rộng, nhanh chóng và an toàn.",
+      description: "PT. AUBE TERA INDONESIA cung cấp website, ứng dụng di động và hệ thống thông tin tích hợp AI tiêu chuẩn cao, có khả năng mở rộng, nhanh chóng và an toàn để đưa doanh nghiệp của bạn lên tầm cao mới.",
       btnConsult: "Tư vấn miễn phí",
       btnPortfolio: "Xem dự án",
       trustBadgesTitle: "Tiêu chuẩn Phần mềm Của Chúng Tôi:",
@@ -523,11 +535,11 @@ export const TRANSLATIONS = {
       }
     },
     about: {
-      badge: "Về Chúng Tôi",
-      heading: "Cùng Xây dựng Tương lai Số với",
-      headingAccent: "PT. AUBE TERA INDONESIA",
-      paragraph1: "PT. AUBE TERA INDONESIA là công ty công nghệ thông tin chuyên nghiệp tập trung vào kỹ thuật phần mềm hiện đại, phát triển ứng dụng web & di động.",
-      paragraph2: "Với đội ngũ kỹ sư giàu kinh nghiệm, chúng tôi sẵn sàng hỗ trợ mọi quy mô doanh nghiệp từ SME đến tập đoàn lớn chuyển đổi số thành công.",
+      badge: "Giới thiệu",
+      heading: "Nhà phát triển Uy tín &",
+      headingAccent: "Đổi mới Hệ thống AI",
+      paragraph1: "AUBE là nhà phát triển uy tín chuyên xây dựng các hệ thống dựa trên AI và mang lại trải nghiệm tiện lợi, thoải mái nhất cho khách hàng và người dùng. Hệ thống tiện ích luôn là ưu tiên hàng đầu của chúng tôi.",
+      paragraph2: "Chúng tôi cam kết mang đến trải nghiệm tuyệt vời cho khách hàng và người dùng bằng cách không ngừng đổi mới và nâng cấp các tính năng hiện đại.",
       visionTitle: "Tầm nhìn",
       visionDesc: "Bring the Enterprise to digital access (Đưa doanh nghiệp tiếp cận môi trường số toàn diện).",
       missionTitle: "Sứ mệnh",
@@ -733,6 +745,10 @@ export const TRANSLATIONS = {
   },
 
   ja: {
+    company: {
+      slogan: "Connecting Bermakna",
+      sloganSub: "Connecting Bermakna",
+    },
     nav: {
       home: "ホーム",
       about: "会社概要",
@@ -748,7 +764,7 @@ export const TRANSLATIONS = {
       badge: "信頼されるソフトウェア開発＆ITソリューション",
       heading1: "ビジネスを加速する",
       headingAccent: "最先端テクノロジーソリューション",
-      description: "PT. AUBE TERA INDONESIA は、高水準・高拡張性・高セキュリティなWebサイト、モバイルアプリ、企業向けシステムを提供します。",
+      description: "PT. AUBE TERA INDONESIA は、AI統合・高水準・高拡張性・高速かつ高セキュリティなWebサイト、モバイルアプリ、企業向けシステムを提供し、お客様のビジネスを次のステージへと導きます。",
       btnConsult: "無料相談する",
       btnPortfolio: "実績を見る",
       trustBadgesTitle: "当社の開発標準:",
@@ -766,10 +782,10 @@ export const TRANSLATIONS = {
     },
     about: {
       badge: "会社概要",
-      heading: "デジタルな未来を共に創る",
-      headingAccent: "PT. AUBE TERA INDONESIA",
-      paragraph1: "PT. AUBE TERA INDONESIA は、現代的なソフトウェアエンジニアリング、Web・モバイルアプリ開発、企業システム自動化に特化したIT専門企業です。",
-      paragraph2: "経験豊富なエンジニアとアジャイル手法を駆使し、スタートアップから大手企業までデジタル変革（DX）を強力にサポートします。",
+      heading: "信頼されるデベロッパーと",
+      headingAccent: "AIシステムの革新",
+      paragraph1: "AUBEは、AIベースのシステムを開発し、顧客およびユーザーに快適な体験を提供する信頼性の高いデベロッパーです。使いやすく快適なシステム構築は私たちの最優先事項です。",
+      paragraph2: "最新機能の絶え間ない革新を通じて、顧客とシステムユーザーに心から満足していただける体験を提供し続けることを目指しています。",
       visionTitle: "ビジョン",
       visionDesc: "Bring the Enterprise to digital access (企業にデジタルアクセスをもたらす)。",
       missionTitle: "ミッション",

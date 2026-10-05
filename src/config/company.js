@@ -6,9 +6,11 @@
 export const COMPANY_CONFIG = {
   name: "PT. AUBE TERA INDONESIA",
   shortName: "AUBE TERA",
+  slogan: "Connecting Bermakna",
+  sloganSub: "Connecting Bermakna",
   field: "IT Solution & Software Development",
   tagline: "Transformasikan Ide Menjadi Solusi Digital",
-  description: "PT. AUBE TERA INDONESIA membantu bisnis, instansi, dan organisasi membangun website, aplikasi mobile, dan sistem informasi modern yang scalable, aman, serta siap pakai.",
+  description: "AUBE adalah developer terpercaya yang mengembangkan sistem berbasis AI dan memberikan pengalaman kenyamanan bagi customer dan pengguna. Sistem yang nyaman merupakan prioritas kami. Kami ingin memberikan pengalaman yang memuaskan bagi customer dan pengguna sistem dengan terus berinovasi pada fitur-fitur.",
   
   // Kontak Perusahaan Resmi
   email: "info@aubetera.co.id",
@@ -17,7 +19,7 @@ export const COMPANY_CONFIG = {
     displayNumber: "+62 822-1149-9289",
     defaultMessage: "Halo PT. AUBE TERA INDONESIA, saya ingin berkonsultasi mengenai kebutuhan pembuatan aplikasi/website.",
   },
-  address: "Suradita, Kec. Cisauk, Kabupaten Tangerang, Banten, Indonesia",
+  address: "Serpong Suradita Indah Blok G11/1A, Tangerang, Banten, Indonesia",
   googleMapsUrl: "https://maps.app.goo.gl/QxD5AwBBi5CH5ZFn7",
   operatingHours: "Senin - Jumat, 08:00 - 17:00 WIB",
 
