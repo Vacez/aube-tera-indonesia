@@ -16,7 +16,7 @@ export const FAQSection = () => {
   };
 
   return (
-    <section className={`py-24 relative overflow-hidden border-b transition-colors duration-300 ${
+    <section id="faq" className={`py-24 relative overflow-hidden border-b transition-colors duration-300 ${
       isDark ? 'bg-slate-950 border-sky-500/15 text-slate-100' : 'bg-slate-50 border-sky-100 text-slate-900'
     }`}>
       

@@ -20,7 +20,7 @@ export const TechnologiesSection = () => {
   };
 
   return (
-    <section className={`py-20 relative overflow-hidden border-b transition-colors duration-300 ${
+    <section id="technologies" className={`py-20 relative overflow-hidden border-b transition-colors duration-300 ${
       isDark ? 'bg-slate-950 border-sky-500/15 text-slate-100' : 'bg-slate-50 border-sky-100 text-slate-900'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
