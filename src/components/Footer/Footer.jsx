@@ -3,10 +3,12 @@ import { Code2, Mail, Phone, MapPin, ArrowUp, Share2, Map } from 'lucide-react';
 import { COMPANY_CONFIG } from '../../config/company';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
+import { getServicesData } from '../../data/services';
 
 export const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { isDark } = useTheme();
+  const services = getServicesData(language);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -53,7 +55,7 @@ export const Footer = () => {
             <div className={`space-y-2.5 pt-2 text-xs ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
               <div className="flex items-start gap-2.5">
                 <MapPin className={`w-4 h-4 shrink-0 mt-0.5 ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />
-                <span>{COMPANY_CONFIG.address}</span>
+                <span>{t('contact.officeAddressValue') || COMPANY_CONFIG.address}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className={`w-4 h-4 shrink-0 ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />
@@ -105,12 +107,13 @@ export const Footer = () => {
               {t('footer.mainServices')}
             </h3>
             <ul className="space-y-2.5 text-xs font-medium">
-              <li><a href="#services" className={`transition-colors ${isDark ? 'hover:text-cyan-400' : 'hover:text-sky-600'}`}>Website Development</a></li>
-              <li><a href="#services" className={`transition-colors ${isDark ? 'hover:text-cyan-400' : 'hover:text-sky-600'}`}>Mobile App Development</a></li>
-              <li><a href="#services" className={`transition-colors ${isDark ? 'hover:text-cyan-400' : 'hover:text-sky-600'}`}>Web Application & Dashboard</a></li>
-              <li><a href="#services" className={`transition-colors ${isDark ? 'hover:text-cyan-400' : 'hover:text-sky-600'}`}>UI/UX Design & Prototype</a></li>
-              <li><a href="#services" className={`transition-colors ${isDark ? 'hover:text-cyan-400' : 'hover:text-sky-600'}`}>Custom Software Engineering</a></li>
-              <li><a href="#services" className={`transition-colors ${isDark ? 'hover:text-cyan-400' : 'hover:text-sky-600'}`}>Business Information System</a></li>
+              {services.slice(0, 6).map((service) => (
+                <li key={service.id}>
+                  <a href="#services" className={`transition-colors ${isDark ? 'hover:text-cyan-400' : 'hover:text-sky-600'}`}>
+                    {service.title}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -158,7 +161,7 @@ export const Footer = () => {
             </div>
 
             <h4 className={`font-semibold text-xs mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{t('footer.operatingHoursTitle')}</h4>
-            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{COMPANY_CONFIG.operatingHours}</p>
+            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t('footer.operatingHoursValue') || COMPANY_CONFIG.operatingHours}</p>
           </div>
         </div>
 

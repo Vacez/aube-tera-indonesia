@@ -1,69 +1,160 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calculator, Sparkles, Check, Cpu, Clock, Layers, DollarSign, ShieldCheck, ArrowRight, Loader2 } from 'lucide-react';
+import { Calculator, Sparkles, Check, ArrowRight, Loader2 } from 'lucide-react';
 import { estimateAIProject } from '../../services/aiService';
 import { Button } from '../Button/Button';
 import { getWhatsAppUrl } from '../../config/company';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 
+export const getEstimatorProjectTypes = (lang = 'id') => {
+  const types = {
+    id: [
+      { id: 'web_app', label: 'Web Application' },
+      { id: 'mobile_app', label: 'Mobile Application' },
+      { id: 'company_website', label: 'Company Website' },
+      { id: 'ecommerce', label: 'E-Commerce' },
+      { id: 'landing_page', label: 'Landing Page' },
+      { id: 'custom_software', label: 'Custom Software' },
+      { id: 'ai_solution', label: 'AI Solution' }
+    ],
+    en: [
+      { id: 'web_app', label: 'Web Application' },
+      { id: 'mobile_app', label: 'Mobile Application' },
+      { id: 'company_website', label: 'Company Website' },
+      { id: 'ecommerce', label: 'E-Commerce Store' },
+      { id: 'landing_page', label: 'Landing Page' },
+      { id: 'custom_software', label: 'Custom Software' },
+      { id: 'ai_solution', label: 'AI Solution' }
+    ],
+    vi: [
+      { id: 'web_app', label: 'Ứng dụng Web (Web App)' },
+      { id: 'mobile_app', label: 'Ứng dụng Di động (Mobile App)' },
+      { id: 'company_website', label: 'Website Doanh nghiệp' },
+      { id: 'ecommerce', label: 'Thương mại điện tử' },
+      { id: 'landing_page', label: 'Trang đích (Landing Page)' },
+      { id: 'custom_software', label: 'Phần mềm theo yêu cầu' },
+      { id: 'ai_solution', label: 'Giải pháp Trí tuệ AI' }
+    ],
+    ja: [
+      { id: 'web_app', label: 'Webアプリケーション' },
+      { id: 'mobile_app', label: 'モバイルアプリ (iOS/Android)' },
+      { id: 'company_website', label: '企業コーポレートサイト' },
+      { id: 'ecommerce', label: 'ECサイト・ネットショップ' },
+      { id: 'landing_page', label: 'ランディングページ (LP)' },
+      { id: 'custom_software', label: 'カスタム業務システム' },
+      { id: 'ai_solution', label: 'AIソリューション開発' }
+    ]
+  };
+  return types[lang] || types['id'];
+};
+
+export const getEstimatorFeatures = (lang = 'id') => {
+  const features = {
+    id: [
+      { id: 'auth', label: 'Authentication (OTP / Login)' },
+      { id: 'admin', label: 'Admin Dashboard & Panel' },
+      { id: 'payment', label: 'Payment Gateway Integration' },
+      { id: 'notif', label: 'Push Notification & Alert' },
+      { id: 'chat', label: 'Live Chat Support & WA' },
+      { id: 'gps', label: 'GPS & Location Tracking' },
+      { id: 'api', label: 'API & Third-party Integration' },
+      { id: 'analytics', label: 'Analytical & Reporting System' },
+      { id: 'ai', label: 'AI / Machine Learning Engine' },
+      { id: 'multirole', label: 'Multi-role User Management' },
+      { id: 'i18n', label: 'Multi-language Support (i18n)' },
+      { id: 'cloud', label: 'Cloud Storage & Backup Routine' }
+    ],
+    en: [
+      { id: 'auth', label: 'Authentication (OTP / Login)' },
+      { id: 'admin', label: 'Admin Dashboard & Panel' },
+      { id: 'payment', label: 'Payment Gateway Integration' },
+      { id: 'notif', label: 'Push Notification & Alert' },
+      { id: 'chat', label: 'Live Chat Support & WA' },
+      { id: 'gps', label: 'GPS & Location Tracking' },
+      { id: 'api', label: 'API & Third-party Integration' },
+      { id: 'analytics', label: 'Analytical & Reporting System' },
+      { id: 'ai', label: 'AI / Machine Learning Engine' },
+      { id: 'multirole', label: 'Multi-role User Management' },
+      { id: 'i18n', label: 'Multi-language Support (i18n)' },
+      { id: 'cloud', label: 'Cloud Storage & Backup Routine' }
+    ],
+    vi: [
+      { id: 'auth', label: 'Xác thực tài khoản (OTP / Login)' },
+      { id: 'admin', label: 'Bảng quản trị Admin Dashboard' },
+      { id: 'payment', label: 'Tích hợp Cổng thanh toán trực tuyến' },
+      { id: 'notif', label: 'Thông báo đẩy (Push Notification)' },
+      { id: 'chat', label: 'Hỗ trợ Chat trực tiếp & WhatsApp' },
+      { id: 'gps', label: 'Định vị GPS & Bản đồ vị trí' },
+      { id: 'api', label: 'Tích hợp API đối tác bên thứ 3' },
+      { id: 'analytics', label: 'Hệ thống Báo cáo & Phân tích số liệu' },
+      { id: 'ai', label: 'Tích hợp AI / Machine Learning Engine' },
+      { id: 'multirole', label: 'Phân quyền đa cấp người dùng' },
+      { id: 'i18n', label: 'Hỗ trợ Đa ngôn ngữ (i18n)' },
+      { id: 'cloud', label: 'Lưu trữ đám mây & Sao lưu định kỳ' }
+    ],
+    ja: [
+      { id: 'auth', label: 'ユーザー認証機能 (OTP / ログイン)' },
+      { id: 'admin', label: '管理者ダッシュボード・管理画面' },
+      { id: 'payment', label: 'オンライン決済ゲートウェイ連携' },
+      { id: 'notif', label: 'プッシュ通知・アラート配信' },
+      { id: 'chat', label: 'チャットサポート・WA連携' },
+      { id: 'gps', label: 'GPS・位置情報トラッキング' },
+      { id: 'api', label: '外部API・サードパーティ連携' },
+      { id: 'analytics', label: '分析・データ集計レポーティング' },
+      { id: 'ai', label: 'AI・機械学習エンジン連携' },
+      { id: 'multirole', label: 'マルチロール権限・ユーザー管理' },
+      { id: 'i18n', label: '多言語対応 (i18n)' },
+      { id: 'cloud', label: 'クラウドストレージ・自動バックアップ' }
+    ]
+  };
+  return features[lang] || features['id'];
+};
+
 export const AIProjectEstimator = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { isDark } = useTheme();
 
-  const projectTypes = [
-    'Company Website',
-    'Landing Page',
-    'E-Commerce',
-    'Web Application',
-    'Mobile Application',
-    'Custom Software',
-    'AI Solution'
-  ];
+  const projectTypes = getEstimatorProjectTypes(language);
+  const availableFeatures = getEstimatorFeatures(language);
 
-  const availableFeatures = [
-    'Authentication (OTP / Login)',
-    'Admin Dashboard',
-    'Payment Gateway Integration',
-    'Push Notification',
-    'Live Chat Support',
-    'GPS & Location Tracking',
-    'API & Third-party Integration',
-    'Analytical & Reporting System',
-    'AI / Machine Learning Engine',
-    'Multi-role User Management',
-    'Multi-language Support (i18n)',
-    'Cloud Storage & Backup Routine'
-  ];
-
-  const [selectedType, setSelectedType] = useState('Web Application');
-  const [selectedFeatures, setSelectedFeatures] = useState([
-    'Authentication (OTP / Login)',
-    'Admin Dashboard',
-    'Analytical & Reporting System'
-  ]);
+  const [selectedTypeId, setSelectedTypeId] = useState('web_app');
+  const [selectedFeatureIds, setSelectedFeatureIds] = useState(['auth', 'admin', 'analytics']);
 
   const [isCalculating, setIsCalculating] = useState(false);
   const [result, setResult] = useState(null);
 
-  const toggleFeature = (feat) => {
-    if (selectedFeatures.includes(feat)) {
-      setSelectedFeatures(selectedFeatures.filter((f) => f !== feat));
+  const toggleFeature = (featId) => {
+    if (selectedFeatureIds.includes(featId)) {
+      setSelectedFeatureIds(selectedFeatureIds.filter((id) => id !== featId));
     } else {
-      setSelectedFeatures([...selectedFeatures, feat]);
+      setSelectedFeatureIds([...selectedFeatureIds, featId]);
     }
   };
 
+  const currentProjectTypeObj = projectTypes.find(p => p.id === selectedTypeId) || projectTypes[0];
+
   const handleEstimate = async () => {
     setIsCalculating(true);
+    const selectedFeatureLabels = availableFeatures
+      .filter(f => selectedFeatureIds.includes(f.id))
+      .map(f => f.label);
+
     const res = await estimateAIProject({
-      projectType: selectedType,
-      features: selectedFeatures
+      projectType: currentProjectTypeObj.label,
+      features: selectedFeatureLabels,
+      language
     });
     if (res.success) {
       setResult(res.estimation);
     }
     setIsCalculating(false);
+  };
+
+  const getComplexityLabel = (complexity) => {
+    if (complexity === 'Advanced') return t('estimator.complexityAdvanced');
+    if (complexity === 'Medium') return t('estimator.complexityMedium');
+    return t('estimator.complexityBasic');
   };
 
   return (
@@ -84,21 +175,21 @@ export const AIProjectEstimator = () => {
             isDark ? 'bg-slate-900 border-cyan-500/30 text-cyan-300' : 'bg-white border-sky-200 text-sky-700 shadow-sm'
           }`}>
             <Calculator className={`w-3.5 h-3.5 ${isDark ? 'text-cyan-400' : 'text-sky-600'}`} />
-            <span>AI Feature #3</span>
+            <span>{t('estimator.badge')}</span>
           </div>
 
           <h2 className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${
             isDark ? 'text-slate-100' : 'text-slate-900'
           }`}>
-            AI Project <span className={
+            {t('estimator.title')} <span className={
               isDark ? 'bg-gradient-to-r from-sky-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent' : 'bg-gradient-to-r from-sky-600 via-cyan-600 to-blue-700 bg-clip-text text-transparent'
-            }>Estimator</span>
+            }>{t('estimator.titleAccent')}</span>
           </h2>
 
           <p className={`text-sm sm:text-base leading-relaxed ${
             isDark ? 'text-slate-400' : 'text-slate-600'
           }`}>
-            Pilih jenis proyek dan fitur yang Anda butuhkan. Mesin AI kami akan menganalisis kompleksitas, estimasi pasaran, serta komposisi tim yang direkomendasikan secara instant.
+            {t('estimator.subtitle')}
           </p>
         </div>
 
@@ -113,23 +204,23 @@ export const AIProjectEstimator = () => {
             {/* Step 1: Select Project Type */}
             <div>
               <label className="block text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 mb-3">
-                1. Pilih Tipe Proyek:
+                {t('estimator.step1')}
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                 {projectTypes.map((type) => (
                   <button
-                    key={type}
+                    key={type.id}
                     type="button"
-                    onClick={() => setSelectedType(type)}
+                    onClick={() => setSelectedTypeId(type.id)}
                     className={`px-3 py-2.5 rounded-xl text-xs font-bold transition-all border text-left cursor-pointer ${
-                      selectedType === type
+                      selectedTypeId === type.id
                         ? 'bg-gradient-to-r from-sky-500 via-cyan-400 to-blue-600 text-slate-950 border-cyan-300 shadow-md'
                         : isDark
                           ? 'bg-slate-950 text-slate-300 border-slate-800 hover:border-cyan-400/40'
                           : 'bg-slate-50 text-slate-700 border-sky-200 hover:bg-sky-50'
                     }`}
                   >
-                    {type}
+                    {type.label}
                   </button>
                 ))}
               </div>
@@ -138,16 +229,16 @@ export const AIProjectEstimator = () => {
             {/* Step 2: Select Features */}
             <div>
               <label className="block text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 mb-3">
-                2. Pilih Fitur yang Dibutuhkan ({selectedFeatures.length} Dipilih):
+                {t('estimator.step2').replace('{count}', selectedFeatureIds.length)}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {availableFeatures.map((feat) => {
-                  const isChecked = selectedFeatures.includes(feat);
+                  const isChecked = selectedFeatureIds.includes(feat.id);
                   return (
                     <button
-                      key={feat}
+                      key={feat.id}
                       type="button"
-                      onClick={() => toggleFeature(feat)}
+                      onClick={() => toggleFeature(feat.id)}
                       className={`flex items-center justify-between p-3 rounded-xl text-xs font-medium transition-all border text-left cursor-pointer ${
                         isChecked
                           ? isDark
@@ -158,7 +249,7 @@ export const AIProjectEstimator = () => {
                             : 'bg-slate-50 text-slate-600 border-sky-100 hover:bg-sky-50'
                       }`}
                     >
-                      <span className="truncate pr-2">{feat}</span>
+                      <span className="truncate pr-2">{feat.label}</span>
                       <div className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 ${
                         isChecked ? 'bg-cyan-400 border-cyan-300 text-slate-950' : 'border-slate-600'
                       }`}>
@@ -178,7 +269,7 @@ export const AIProjectEstimator = () => {
               className="w-full bg-gradient-to-r from-sky-500 via-cyan-400 to-blue-600 text-slate-950 font-black shadow-xl shadow-cyan-500/20"
               onClick={handleEstimate}
             >
-              {isCalculating ? 'Aube AI Menganalisis Spesifikasi...' : 'Jalankan Analisis AI Estimator'}
+              {isCalculating ? t('estimator.btnCalculating') : t('estimator.btnCalculate')}
             </Button>
 
           </div>
@@ -197,30 +288,30 @@ export const AIProjectEstimator = () => {
               >
                 <div className="flex items-center justify-between border-b pb-3 border-slate-800/80">
                   <div>
-                    <span className="text-[10px] font-mono font-bold uppercase text-cyan-400">AI Analysis Report</span>
+                    <span className="text-[10px] font-mono font-bold uppercase text-cyan-400">{t('estimator.reportTitle')}</span>
                     <h3 className="text-lg font-black">{result.projectType}</h3>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-bold border ${
                     result.complexity === 'Advanced' ? 'bg-purple-500/20 text-purple-300 border-purple-400/40' : 'bg-cyan-500/20 text-cyan-300 border-cyan-400/40'
                   }`}>
-                    {result.complexity} Complexity
+                    {getComplexityLabel(result.complexity)} {t('estimator.complexitySuffix')}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-sky-50 border-sky-100'}`}>
-                    <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block mb-0.5">Estimasi Pasaran</span>
+                    <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block mb-0.5">{t('estimator.marketEstimate')}</span>
                     <span className="font-extrabold text-sm text-cyan-300">{result.estimatedBudgetRange}</span>
                   </div>
 
                   <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-sky-50 border-sky-100'}`}>
-                    <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block mb-0.5">Estimasi Waktu</span>
+                    <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block mb-0.5">{t('estimator.timeEstimate')}</span>
                     <span className="font-extrabold text-sm text-cyan-300">{result.estimatedTimelineRange}</span>
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-mono uppercase font-bold text-cyan-400 block mb-2">Rekomendasi Tim Software House</span>
+                  <span className="text-[10px] font-mono uppercase font-bold text-cyan-400 block mb-2">{t('estimator.teamRecommendation')}</span>
                   <div className="flex flex-wrap gap-1.5">
                     {result.recommendedTeam.map((member, idx) => (
                       <span key={idx} className={`px-2.5 py-1 rounded-lg text-xs font-semibold border ${
@@ -235,7 +326,7 @@ export const AIProjectEstimator = () => {
                 <div className={`p-3.5 rounded-2xl border text-[11px] leading-relaxed ${
                   isDark ? 'bg-sky-950/40 border-cyan-400/30 text-sky-200' : 'bg-sky-50 border-sky-200 text-sky-900'
                 }`}>
-                  <span className="font-bold">⚠️ Catatan Resmi: </span>
+                  <span className="font-bold">⚠️ {t('estimator.disclaimerTitle')} </span>
                   <span>{result.disclaimer}</span>
                 </div>
 
@@ -244,9 +335,14 @@ export const AIProjectEstimator = () => {
                   size="md"
                   icon={ArrowRight}
                   className="w-full bg-gradient-to-r from-sky-500 via-cyan-400 to-blue-600 text-slate-950 font-black shadow-lg"
-                  onClick={() => window.open(getWhatsAppUrl(`Halo PT. AUBE TERA INDONESIA, saya telah mencoba AI Estimator untuk project ${result.projectType} dengan estimasi budget ${result.estimatedBudgetRange}. Saya ingin berkonsultasi lebih lanjut.`), '_blank')}
+                  onClick={() => {
+                    const waText = t('estimator.waMessage')
+                      .replace('{projectType}', result.projectType)
+                      .replace('{budget}', result.estimatedBudgetRange);
+                    window.open(getWhatsAppUrl(waText), '_blank');
+                  }}
                 >
-                  Konsultasi Hasil Estimasi Ini (WhatsApp)
+                  {t('estimator.consultBtn')}
                 </Button>
 
               </motion.div>
@@ -257,9 +353,9 @@ export const AIProjectEstimator = () => {
                 <div className="w-16 h-16 rounded-3xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center mx-auto text-cyan-400">
                   <Calculator className="w-8 h-8" />
                 </div>
-                <h3 className={`text-base font-bold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>Siap Menganalisis Estimasi Proyek</h3>
+                <h3 className={`text-base font-bold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{t('estimator.readyTitle')}</h3>
                 <p className="text-xs max-w-xs mx-auto">
-                  Pilih tipe proyek dan fitur di sebelah kiri, kemudian klik tombol untuk melihat analisis estimasi AUBE AI.
+                  {t('estimator.readyDesc')}
                 </p>
               </div>
             )}

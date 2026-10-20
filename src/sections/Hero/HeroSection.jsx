@@ -8,48 +8,19 @@ import { useTheme } from '../../context/ThemeContext';
 import { TechMarquee } from '../../components/TechMarquee/TechMarquee';
 import WebThreads from '../../components/WebThreads/WebThreads';
 
-export const HeroSection = () => {
+export const HeroSection = ({ onOpenAi }) => {
   const { t } = useLanguage();
   const { isDark } = useTheme();
 
   return (
     <section id="home" className={`relative pt-32 pb-16 md:pt-44 md:pb-20 overflow-hidden bg-cyber-grid border-b transition-colors duration-300 ${
-      isDark ? 'bg-slate-950 border-sky-500/15 text-slate-100' : 'bg-slate-50 border-sky-200 text-slate-900'
+      isDark ? 'border-sky-500/15 text-slate-100' : 'border-sky-200 text-slate-900'
     }`}>
       
-      {/* Dynamic React Bits WebThreads Animated Background */}
-      <div className="absolute inset-0 pointer-events-auto z-0 opacity-80 overflow-hidden">
-        <WebThreads
-          color1={isDark ? '#06b6d4' : '#0284c7'}
-          color2={isDark ? '#818cf8' : '#6366f1'}
-          color3={isDark ? '#ffffff' : '#e0f2fe'}
-          speed={0.25}
-          threadCount={7}
-          frequency={4.5}
-          spread={0.2}
-          taper={1.1}
-          position={0.5}
-          fanMode="center"
-          glow={0.03}
-          falloff={0.55}
-          thickness={1.2}
-          brightness={isDark ? 0.75 : 0.6}
-          opacity={isDark ? 0.85 : 0.65}
-          mirror={true}
-          shimmer={true}
-          grain={true}
-          grainIntensity={0.04}
-          mouseInteraction={true}
-          mouseStrength={0.4}
-          backgroundColor={isDark ? '#050811' : '#f8fafc'}
-          lightMode={!isDark}
-        />
-      </div>
-
-      {/* Real Corporate IT Software Office Background Wallpaper */}
+      {/* Base Background Wallpaper & Soft Gradient */}
       <div 
         className={`absolute inset-0 bg-cover bg-center transition-all duration-700 pointer-events-none z-0 ${
-          isDark ? 'opacity-15 mix-blend-luminosity' : 'opacity-10 mix-blend-multiply'
+          isDark ? 'opacity-5 mix-blend-luminosity' : 'opacity-5 mix-blend-multiply'
         }`}
         style={{
           backgroundImage: "url('/corporate_it_bg.jpg')"
@@ -57,8 +28,8 @@ export const HeroSection = () => {
       />
       <div className={`absolute inset-0 pointer-events-none z-0 ${
         isDark 
-          ? 'bg-gradient-to-b from-slate-950/80 via-slate-950/70 to-slate-950/95' 
-          : 'bg-gradient-to-b from-white/75 via-slate-50/80 to-slate-50/95'
+          ? 'bg-gradient-to-b from-slate-950/20 via-transparent to-slate-950/40' 
+          : 'bg-gradient-to-b from-white/20 via-transparent to-slate-50/40'
       }`} />
 
       {/* Futuristic Background Ambient Glow Orbs */}

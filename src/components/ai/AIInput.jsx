@@ -27,7 +27,7 @@ export const AIInput = ({ onSendMessage, isLoading }) => {
     const SpeechRecognition = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
     
     if (!SpeechRecognition) {
-      alert("Browser Anda belum mendukung pemindaian Mikrofon (Speech-to-Text). Silakan gunakan Google Chrome, Microsoft Edge, atau Safari.");
+      alert(t('aiChat.sttNotSupported'));
       return;
     }
 
@@ -103,7 +103,7 @@ export const AIInput = ({ onSendMessage, isLoading }) => {
         type="button"
         onClick={startListening}
         disabled={isLoading}
-        title={isListening ? "Hentikan Mikrofon" : "Tanyakan Lewat Mikrofon / Suara"}
+        title={isListening ? t('aiChat.stopListenTooltip') : t('aiChat.listenTooltip')}
         className={`p-3 rounded-2xl transition-all border cursor-pointer shrink-0 flex items-center justify-center ${
           isListening
             ? 'bg-rose-500/20 text-rose-400 border-rose-500/50 animate-pulse shadow-lg shadow-rose-950/50'
@@ -125,7 +125,7 @@ export const AIInput = ({ onSendMessage, isLoading }) => {
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder={isListening ? "🎙️ Bicara sekarang... (otomatis terkirim saat selesai)" : t('aiChat.inputPlaceholder')}
+          placeholder={isListening ? t('aiChat.listeningPlaceholder') : t('aiChat.inputPlaceholder')}
           disabled={isLoading}
           className={`w-full pl-4 pr-12 py-3 rounded-2xl text-xs sm:text-sm focus:outline-none transition-all border ${
             isListening

@@ -12,20 +12,20 @@ export const AboutSection = () => {
 
   return (
     <section id="about" className={`py-24 relative overflow-hidden border-b transition-colors duration-300 ${
-      isDark ? 'bg-slate-950/90 border-sky-500/15 text-slate-100' : 'bg-white/90 border-sky-100 text-slate-900'
+      isDark ? 'bg-slate-950/75 backdrop-blur-xs border-sky-500/15 text-slate-100' : 'bg-slate-50/75 backdrop-blur-xs border-sky-100 text-slate-900'
     }`}>
       
       {/* Corporate Building Background Image Overlay */}
       <div 
         className={`absolute inset-0 bg-cover bg-center pointer-events-none transition-all duration-700 ${
-          isDark ? 'opacity-15 mix-blend-luminosity' : 'opacity-10 mix-blend-multiply'
+          isDark ? 'opacity-10 mix-blend-luminosity' : 'opacity-5 mix-blend-multiply'
         }`}
         style={{
           backgroundImage: "url('/corporate_building_bg.jpg')"
         }}
       />
       <div className={`absolute inset-0 pointer-events-none ${
-        isDark ? 'bg-gradient-to-b from-slate-950/95 via-slate-950/90 to-slate-950/95' : 'bg-gradient-to-b from-white/95 via-slate-50/90 to-white/95'
+        isDark ? 'bg-gradient-to-b from-slate-950/70 via-slate-950/50 to-slate-950/70' : 'bg-gradient-to-b from-white/70 via-slate-50/50 to-white/70'
       }`} />
 
       {/* Ambient Cyber Lighting Orbs */}

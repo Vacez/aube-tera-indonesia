@@ -15,6 +15,7 @@ export const TechnologiesSection = () => {
     if (cat.includes('Backend')) return t('technologies.backend');
     if (cat.includes('Mobile')) return t('technologies.mobile');
     if (cat.includes('Database')) return t('technologies.database');
+    if (cat.includes('Infrastructure') || cat.includes('DevOps')) return t('technologies.infrastructure');
     return cat;
   };
 

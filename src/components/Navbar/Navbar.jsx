@@ -72,10 +72,10 @@ export const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           
           {/* Brand Logo */}
-          <a href="#home" className="flex items-center gap-3 group">
+          <a href="#home" className="flex items-center gap-3 group shrink-0">
             <div className="w-10 h-10 rounded-full overflow-hidden bg-white p-1 border-2 border-sky-400/60 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform duration-300 shrink-0 flex items-center justify-center">
               <img src="/logo.png" alt="PT. AUBE TERA INDONESIA" className="w-full h-full object-contain rounded-full" />
             </div>
@@ -97,7 +97,7 @@ export const Navbar = () => {
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className={`hidden lg:flex items-center gap-1 p-1.5 rounded-full border backdrop-blur-xl transition-all ${
+          <nav className={`hidden lg:flex items-center gap-0.5 xl:gap-1 p-1.5 rounded-full border backdrop-blur-xl transition-all shrink-0 ${
             isDark
               ? 'bg-slate-900/90 border-sky-500/20 shadow-inner'
               : 'bg-white/90 border-sky-200 shadow-xs'
@@ -108,7 +108,7 @@ export const Navbar = () => {
                 <a
                   key={link.id}
                   href={link.href}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+                  className={`px-2.5 xl:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 whitespace-nowrap shrink-0 ${
                     isActive
                       ? isDark
                         ? 'bg-gradient-to-r from-sky-500 via-cyan-500 to-blue-600 text-slate-950 shadow-lg shadow-cyan-500/25'
@@ -125,7 +125,7 @@ export const Navbar = () => {
           </nav>
 
           {/* Theme Switcher & Language Switcher */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
             
             {/* Theme Toggle Button */}
             <button

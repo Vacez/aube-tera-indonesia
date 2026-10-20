@@ -74,6 +74,11 @@ export function AdminDashboard({ isOpen, onClose }) {
   useEffect(() => {
     if (isOpen) {
       loadMetrics();
+      const handleUpdate = () => loadMetrics();
+      window.addEventListener('aube_ai_session_updated', handleUpdate);
+      return () => {
+        window.removeEventListener('aube_ai_session_updated', handleUpdate);
+      };
     }
   }, [isOpen]);
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const AubeAIButton = ({ onClick, isOpen, unreadCount = 0 }) => {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <div className="fixed bottom-6 left-6 z-50">
@@ -30,7 +32,7 @@ export const AubeAIButton = ({ onClick, isOpen, unreadCount = 0 }) => {
             ✨ AUBE AI
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           </span>
-          <span className="text-[10px] font-bold opacity-80">AI Consultant</span>
+          <span className="text-[10px] font-bold opacity-80">{t('aiChat.buttonSubtitle')}</span>
         </div>
 
         {unreadCount > 0 && (

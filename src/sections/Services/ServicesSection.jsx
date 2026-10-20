@@ -21,7 +21,7 @@ export const ServicesSection = () => {
 
   return (
     <section id="services" className={`py-24 relative overflow-hidden border-b transition-colors duration-300 ${
-      isDark ? 'bg-slate-950/95 border-sky-500/15 text-slate-100' : 'bg-white/95 border-sky-100 text-slate-900'
+      isDark ? 'bg-slate-950/75 backdrop-blur-xs border-sky-500/15 text-slate-100' : 'bg-slate-50/70 backdrop-blur-xs border-sky-100 text-slate-900'
     }`}>
       
       {/* Background Glow */}

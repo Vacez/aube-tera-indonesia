@@ -16,6 +16,8 @@ import { FAQSection } from './sections/FAQ/FAQSection';
 import { ContactSection } from './sections/Contact/ContactSection';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp/FloatingWhatsApp';
 import { Footer } from './components/Footer/Footer';
+import ThreeGlobeBackground from './components/ThreeGlobe/ThreeGlobeBackground';
+import { useTheme } from './context/ThemeContext';
 
 // AI Components
 import { AubeAIButton } from './components/ai/AubeAIButton';
@@ -24,17 +26,27 @@ import { AIProjectEstimator } from './components/ai/AIProjectEstimator';
 
 export function App() {
   const [isAiChatOpen, setIsAiChatOpen] = useState(false);
+  const { isDark } = useTheme();
 
   return (
-    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans selection:bg-sky-500 selection:text-white">
+    <div className={`min-h-screen relative flex flex-col font-sans selection:bg-sky-500 selection:text-white transition-colors duration-300 ${
+      isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'
+    }`}>
+      {/* Persistent 3D Interactive Cyber Globe that stays visible during scrolling */}
+      <ThreeGlobeBackground isFixed={true} interactive={true} />
+
       {/* Scroll Progress Bar at the top */}
-      <ScrollProgress />
+      <div className="relative z-50">
+        <ScrollProgress />
+      </div>
 
       {/* Sticky Header Navigation */}
-      <Navbar />
+      <div className="relative z-40">
+        <Navbar />
+      </div>
 
       {/* Main Page Sections with Scroll Entrance Animations */}
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         <HeroSection onOpenAi={() => setIsAiChatOpen(true)} />
 
         <ScrollRevealSection>

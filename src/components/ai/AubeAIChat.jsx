@@ -15,13 +15,15 @@ import {
   ChevronRight,
   MessageSquare,
   Volume2,
-  VolumeX
+  VolumeX,
+  Zap
 } from 'lucide-react';
 import { AIMessage } from './AIMessage';
 import { AIInput } from './AIInput';
 import { AIQuickPrompts } from './AIQuickPrompts';
 import { ProjectBriefCard } from './ProjectBriefCard';
-import { sendAIMessage, generateProjectBrief, detectMessageLanguage } from '../../services/aiService';
+import { AILimitModal } from './AILimitModal';
+import { sendAIMessage, generateProjectBrief, detectMessageLanguage, getAiQuotaStatus } from '../../services/aiService';
 import { submitLead } from '../../services/leadService';
 import { Button } from '../Button/Button';
 import { useTheme } from '../../context/ThemeContext';
@@ -61,15 +63,24 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
     }
   }, [language, getInitialMessage]);
 
-  const [conversationId, setConversationId] = useState(null);
+  const [conversationId, setConversationId] = useState(() => 'sess_' + Date.now());
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [projectBrief, setProjectBrief] = useState(null);
+  const [customizedBrief, setCustomizedBrief] = useState(null);
   const [isGeneratingBrief, setIsGeneratingBrief] = useState(false);
   // Auto-Voice Assistant State (Enabled by default for two-way voice call)
   const [isAutoVoice, setIsAutoVoice] = useState(true);
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [leadSubmitted, setLeadSubmitted] = useState(false);
+
+  // AI Quota & Limit Modal State
+  const [showLimitModal, setShowLimitModal] = useState(false);
+  const [quotaStatus, setQuotaStatus] = useState(() => getAiQuotaStatus());
+
+  const updateQuotaStatus = () => {
+    setQuotaStatus(getAiQuotaStatus());
+  };
   
   // History Drawer State
   const [showHistoryDrawer, setShowHistoryDrawer] = useState(false);
@@ -96,27 +107,29 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Helper to persist current session to history
-  const persistCurrentSession = (updatedMessages, currentBrief = projectBrief) => {
-    if (updatedMessages.length <= 1) return; // don't save empty welcome message
+  // Helper to persist current session to history and broadcast updates
+  const persistCurrentSession = (updatedMessages, currentBrief = null, explicitId = null) => {
+    if (!updatedMessages || updatedMessages.length <= 1) return; // don't save empty welcome message
 
+    const activeId = explicitId || conversationId || ('sess_' + Date.now());
     const firstUserMsg = updatedMessages.find(m => m.role === 'user')?.content || 'Konsultasi Proyek IT';
-    const title = firstUserMsg.length > 35 ? firstUserMsg.substring(0, 35) + '...' : firstUserMsg;
-    const currentId = conversationId || 'sess_' + Date.now();
+    const title = firstUserMsg.length > 38 ? firstUserMsg.substring(0, 38) + '...' : firstUserMsg;
+    const briefToSave = currentBrief !== undefined && currentBrief !== null ? currentBrief : (customizedBrief || projectBrief);
 
     const newSession = {
-      id: currentId,
+      id: activeId,
       title,
       messages: updatedMessages,
-      projectBrief: currentBrief,
+      projectBrief: briefToSave,
       updatedAt: new Date().toISOString()
     };
 
     setSavedSessions(prev => {
-      const filtered = prev.filter(s => s.id !== currentId);
-      const updated = [newSession, ...filtered].slice(0, 20); // keep last 20 sessions
+      const filtered = prev.filter(s => s.id !== activeId);
+      const updated = [newSession, ...filtered].slice(0, 30); // keep last 30 sessions
       try {
         localStorage.setItem('aube_ai_history_sessions', JSON.stringify(updated));
+        window.dispatchEvent(new CustomEvent('aube_ai_session_updated', { detail: newSession }));
       } catch (e) {
         console.warn('Failed to store history in localStorage:', e);
       }
@@ -124,36 +137,71 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
     });
   };
 
+  // Keep savedSessions in sync whenever drawer opens or modal is opened
+  useEffect(() => {
+    if (isOpen || showHistoryDrawer) {
+      try {
+        const stored = localStorage.getItem('aube_ai_history_sessions');
+        if (stored) {
+          setSavedSessions(JSON.parse(stored));
+        }
+      } catch (e) {
+        console.warn('Could not reload chat history:', e);
+      }
+    }
+  }, [isOpen, showHistoryDrawer]);
+
   useEffect(() => {
     if (isOpen) {
       scrollToBottom();
     }
   }, [messages, isOpen, isLoading]);
 
+  const handleCloseChat = () => {
+    if (messages.length > 1) {
+      persistCurrentSession(messages, customizedBrief || projectBrief, conversationId);
+    }
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   // Handler: Obrolan Baru (New Chat)
   const handleNewChat = () => {
-    persistCurrentSession(messages, projectBrief);
+    if (messages.length > 1) {
+      persistCurrentSession(messages, customizedBrief || projectBrief, conversationId);
+    }
+    const newId = 'sess_' + Date.now();
+    setConversationId(newId);
     setMessages([getInitialMessage()]);
-    setConversationId('sess_' + Date.now());
     setProjectBrief(null);
+    setCustomizedBrief(null);
     setErrorMsg(null);
     setShowHistoryDrawer(false);
   };
 
   // Handler: Refresh Obrolan (Reset current conversation)
   const handleRefreshChat = () => {
+    if (messages.length > 1) {
+      persistCurrentSession(messages, customizedBrief || projectBrief, conversationId);
+    }
+    const newId = 'sess_' + Date.now();
+    setConversationId(newId);
     setMessages([getInitialMessage()]);
     setProjectBrief(null);
+    setCustomizedBrief(null);
     setErrorMsg(null);
   };
 
   // Handler: Select Session from History
   const handleSelectSession = (session) => {
+    if (messages.length > 1 && conversationId !== session.id) {
+      persistCurrentSession(messages, customizedBrief || projectBrief, conversationId);
+    }
     setMessages(session.messages || [getInitialMessage()]);
     setConversationId(session.id);
     setProjectBrief(session.projectBrief || null);
+    setCustomizedBrief(session.projectBrief || null);
     setShowHistoryDrawer(false);
     setErrorMsg(null);
   };
@@ -165,6 +213,7 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
       const updated = prev.filter(s => s.id !== sessionId);
       try {
         localStorage.setItem('aube_ai_history_sessions', JSON.stringify(updated));
+        window.dispatchEvent(new CustomEvent('aube_ai_session_updated', { detail: { deletedId: sessionId } }));
       } catch (err) {
         console.warn('Failed to delete history session:', err);
       }
@@ -192,6 +241,19 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
         language
       });
 
+      if (res.limitReached || res.isQuotaExhausted) {
+        setShowLimitModal(true);
+        const limitNoticeMsg = {
+          role: 'assistant',
+          content: `⚠️ **${t('tokenLimitModal.title')}**\n\n${t('tokenLimitModal.desc')}`,
+          detectedLang: language,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        const finalHistory = [...newHistory, limitNoticeMsg];
+        setMessages(finalHistory);
+        return;
+      }
+
       if (res.success) {
         const assistantMsg = {
           role: 'assistant',
@@ -201,15 +263,21 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
         };
         const finalHistory = [...newHistory, assistantMsg];
         setMessages(finalHistory);
-        if (res.conversationId) setConversationId(res.conversationId);
+        const activeId = res.conversationId || conversationId || ('sess_' + Date.now());
+        if (conversationId !== activeId) {
+          setConversationId(activeId);
+        }
 
-        // Auto persist session to localStorage
-        persistCurrentSession(finalHistory);
+        // Auto persist session to localStorage with stable activeId
+        persistCurrentSession(finalHistory, customizedBrief || projectBrief, activeId);
       } else {
         throw new Error(res.error || 'Failed to receive response');
       }
     } catch (err) {
       console.error('AUBE AI Send Error:', err);
+      if (err.isQuotaExhausted || (err.message && (err.message.toLowerCase().includes('quota') || err.message.includes('429')))) {
+        setShowLimitModal(true);
+      }
       setErrorMsg('Maaf, AUBE AI sedang mengalami gangguan. Silakan coba beberapa saat lagi.');
     } finally {
       setIsLoading(false);
@@ -227,7 +295,7 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
 
       if (res.success && res.brief) {
         setProjectBrief(res.brief);
-        persistCurrentSession(messages, res.brief);
+        persistCurrentSession(messages, res.brief, conversationId);
       } else {
         throw new Error('Could not generate brief');
       }
@@ -242,13 +310,30 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
   const handleLeadFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      const activeBrief = customizedBrief || projectBrief;
+      const coreSelected = activeBrief?.core_features?.join(', ') || '';
+      const adminSelected = activeBrief?.admin_features?.join(', ') || '';
+      const excludedCore = activeBrief?.excluded_features?.core?.length 
+        ? ` (Dilewati: ${activeBrief.excluded_features.core.join(', ')})` 
+        : '';
+      const excludedAdmin = activeBrief?.excluded_features?.admin?.length 
+        ? ` (Dilewati: ${activeBrief.excluded_features.admin.join(', ')})` 
+        : '';
+
+      const summaryParts = [
+        activeBrief?.project_name ? `Nama Proyek: ${activeBrief.project_name} (${activeBrief.business_type || 'N/A'})` : '',
+        activeBrief?.objective || messages[messages.length - 1]?.content,
+        coreSelected ? `Fitur Utama Dipilih: ${coreSelected}${excludedCore}` : '',
+        adminSelected ? `Fitur Admin Dipilih: ${adminSelected}${excludedAdmin}` : ''
+      ].filter(Boolean).join('\n\n');
+
       await submitLead({
         ...leadForm,
-        project_type: projectBrief?.platform || 'Web/Mobile App',
-        project_description: projectBrief?.objective || messages[messages.length - 1]?.content,
-        ai_summary: projectBrief?.objective || 'AI Consultation session',
-        recommended_solution: projectBrief?.technical_recommendation || 'Custom IT Solution',
-        project_complexity: projectBrief?.complexity || 'Medium'
+        project_type: activeBrief?.platform || 'Web/Mobile App',
+        project_description: summaryParts || messages[messages.length - 1]?.content,
+        ai_summary: activeBrief?.objective || 'AI Consultation session',
+        recommended_solution: activeBrief?.technical_recommendation || 'Custom IT Solution',
+        project_complexity: activeBrief?.complexity || 'Medium'
       });
       setLeadSubmitted(true);
       setTimeout(() => {
@@ -269,7 +354,7 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={onClose}
+          onClick={handleCloseChat}
           className={`fixed inset-0 ${
             isDark ? 'bg-slate-950/85 backdrop-blur-xl' : 'bg-slate-900/65 backdrop-blur-md'
           }`}
@@ -372,7 +457,7 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
 
               {/* Button: Close Modal */}
               <button
-                onClick={onClose}
+                onClick={handleCloseChat}
                 className={`p-2 rounded-full border transition-all cursor-pointer ${
                   isDark ? 'bg-slate-900 text-slate-300 hover:text-white border-slate-800' : 'bg-white text-slate-600 hover:text-slate-900 border-sky-200'
                 }`}
@@ -497,7 +582,13 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
             {projectBrief && (
               <ProjectBriefCard
                 brief={projectBrief}
-                onSubmitLead={() => setShowLeadModal(true)}
+                onSubmitLead={(customized) => {
+                  if (customized) {
+                    setCustomizedBrief(customized);
+                    persistCurrentSession(messages, customized, conversationId);
+                  }
+                  setShowLeadModal(true);
+                }}
               />
             )}
 
@@ -548,24 +639,32 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
               {leadSubmitted ? (
                 <div className="text-center py-8 space-y-3">
                   <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-                  <h3 className="text-xl font-bold">Hasil Konsultasi Terkirim!</h3>
-                  <p className="text-xs text-slate-400">Tim PT. AUBE TERA INDONESIA akan segera menghubungi Anda melalui WhatsApp / Email.</p>
+                  <h3 className="text-xl font-bold">{t('aiChat.leadSuccessTitle')}</h3>
+                  <p className="text-xs text-slate-400">{t('aiChat.leadSuccessDesc')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleLeadFormSubmit} className="space-y-4">
                   <div className="text-center mb-4">
-                    <h3 className="text-lg font-bold">Kirim Hasil Konsultasi AI</h3>
-                    <p className="text-xs text-slate-400">Tim kami akan meninjau Project Brief ini dan memberikan penawaran resmi.</p>
+                    <h3 className="text-lg font-bold">{t('aiChat.leadModalTitle')}</h3>
+                    <p className="text-xs text-slate-400">{t('aiChat.leadModalDesc')}</p>
+                    {customizedBrief && (
+                      <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-sky-400" />
+                        <span>
+                          {(customizedBrief.core_features?.length || 0) + (customizedBrief.admin_features?.length || 0)} Fitur Rekomendasi Terpilih
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold mb-1">Nama Lengkap *</label>
+                    <label className="block text-xs font-bold mb-1">{t('aiChat.leadFullName')}</label>
                     <input
                       type="text"
                       required
                       value={leadForm.name}
                       onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
-                      placeholder="Masukkan nama Anda"
+                      placeholder={t('aiChat.leadNamePlaceholder')}
                       className={`w-full px-3.5 py-2 rounded-xl text-xs border ${
                         isDark ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-sky-200'
                       }`}
@@ -573,13 +672,13 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold mb-1">Nomor WhatsApp *</label>
+                    <label className="block text-xs font-bold mb-1">{t('aiChat.leadPhone')}</label>
                     <input
                       type="tel"
                       required
                       value={leadForm.whatsapp}
                       onChange={(e) => setLeadForm({ ...leadForm, whatsapp: e.target.value })}
-                      placeholder="082211499289"
+                      placeholder={t('aiChat.leadPhonePlaceholder')}
                       className={`w-full px-3.5 py-2 rounded-xl text-xs border ${
                         isDark ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-sky-200'
                       }`}
@@ -587,13 +686,13 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold mb-1">Email Pertanyaan *</label>
+                    <label className="block text-xs font-bold mb-1">{t('aiChat.leadEmail')}</label>
                     <input
                       type="email"
                       required
                       value={leadForm.email}
                       onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
-                      placeholder="nama@perusahaan.com"
+                      placeholder={t('aiChat.leadEmailPlaceholder')}
                       className={`w-full px-3.5 py-2 rounded-xl text-xs border ${
                         isDark ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-sky-200'
                       }`}
@@ -601,12 +700,12 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold mb-1">Perusahaan / Instansi (Opsional)</label>
+                    <label className="block text-xs font-bold mb-1">{t('aiChat.leadCompany')}</label>
                     <input
                       type="text"
                       value={leadForm.company}
                       onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
-                      placeholder="Nama PT / CV"
+                      placeholder={t('aiChat.leadCompanyPlaceholder')}
                       className={`w-full px-3.5 py-2 rounded-xl text-xs border ${
                         isDark ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-sky-200'
                       }`}
@@ -619,13 +718,20 @@ export const AubeAIChat = ({ isOpen, onClose }) => {
                     size="md"
                     className="w-full bg-gradient-to-r from-sky-500 via-cyan-400 to-blue-600 text-slate-950 font-black mt-2"
                   >
-                    Kirim ke Tim PT. AUBE TERA INDONESIA
+                    {t('aiChat.leadSubmitBtn')}
                   </Button>
                 </form>
               )}
             </div>
           </div>
         )}
+
+        {/* AI Quota Limit & Subscription Modal */}
+        <AILimitModal
+          isOpen={showLimitModal}
+          onClose={() => setShowLimitModal(false)}
+          onKeyUpdated={updateQuotaStatus}
+        />
 
       </div>
     </AnimatePresence>
